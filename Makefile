@@ -10,12 +10,12 @@ all:
 	@rm Module.symvers
 
 run: 
-	sudo dmesg -c > /dev/null #Clear kernel messages
-	-sudo rmmod chardev #in case already there
-	-sudo rm /dev/chardev #also in case
+	@-sudo dmesg -c > /dev/null             # Clear kernel messages
+	@-sudo rmmod chardev                    # in case already there
+	@-sudo rm /dev/chardev                  # also in case
 	sudo insmod chardev.ko
-	sudo dmesg -c #Clear/show kernel messages
-	sudo mknod /dev/chardev c 100 0 -m 777
+	sudo dmesg -c                          # Clear/show kernel messages
+	sudo mknod /dev/chardev c 100 0 -m 777 # Add new driver - can echo to it fine with permission set to 777 (probably dangerous)
 	@echo ""
 	@echo "->Cat the driver"
 	cat /dev/chardev
